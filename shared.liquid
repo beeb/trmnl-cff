@@ -1,0 +1,89 @@
+<style>
+  .time { font-family: TRMNL21; font-size: 21px; white-space: nowrap; }
+  .legs { display: flex; align-items: center; gap: 3px; }
+  .leg { flex: 1; height: 4px; background: black; }
+  .details .description { font-weight: 400; }
+  .alert { flex: none; width: 24px; height: 22px; }
+  .change { flex: none; width: 10px; height: 10px; border: 2px solid black; border-radius: 50%; box-sizing: border-box; }
+</style>
+
+{% template cff %}
+{%- if layout == "full" -%}
+  {%- assign max = 15 -%}
+{%- elsif layout == "horizontal" -%}
+  {%- assign max = 6 -%}
+{%- elsif layout == "vertical" -%}
+  {%- assign max = 5 -%}
+{%- else -%}
+  {%- assign max = 2 -%}
+{%- endif -%}
+{%- assign fields = trmnl.plugin_settings.custom_fields_values -%}
+{%- comment -%} departure times are naive Swiss local times, which Liquid parses as UTC {%- endcomment -%}
+{%- assign walk = fields.min_to_station | times: 60 -%}
+{%- assign earliest = 'now' | date: '%s' | plus: trmnl.user.utc_offset | plus: walk -%}
+{%- assign shown = 0 -%}
+<div class="layout layout--col layout--top">
+  <div class="grid grid--wrap grid--min-56">
+    {%- for connection in connections -%}
+      {%- assign departure = connection.departure | date: '%s' | plus: 0 -%}
+      {%- if departure >= earliest and shown < max -%}
+        {%- assign shown = shown | plus: 1 -%}
+        {%- assign delayed = false -%}
+        {%- if connection.dep_delay != nil and connection.dep_delay != "+0" -%}
+          {%- assign delayed = true -%}
+        {%- endif -%}
+        <div class="border--h-4 pb--2">
+          <div class="flex flex--row flex--between flex--center-y gap--small">
+            <div class="flex flex--row flex--center-y gap--small">
+              <span class="label {% if connection.dep_delay == "X" %}label--gray{% elsif delayed %}label--outline{% else %}label--inverted{% endif %}">
+                {{- connection.line -}}
+              </span>
+              <span class="title title--small clamp--1">{{ connection.terminal }}</span>
+            </div>
+            {%- if connection.disrupted -%}
+              <svg class="alert" viewBox="0 0 24 22"><path d="M12 2.5 L22 19.5 H2 Z" fill="black" stroke="black" stroke-width="4" stroke-linejoin="round" /><rect x="11" y="7" width="2" height="7" fill="white" /><rect x="11" y="16" width="2" height="2" fill="white" /></svg>
+            {%- endif -%}
+          </div>
+          <div class="w--full flex flex--row flex--between flex--center-y gap--small">
+            <span class="time">
+              {{ connection.departure | l_date: '%H:%M' }}
+              {%- if connection.dep_delay == "X" %} cancelled
+              {%- elsif delayed %} {{ connection.dep_delay }}
+              {%- endif -%}
+            </span>
+            {%- if connection.dep_delay != "X" -%}
+              <div class="legs stretch">
+                {%- for _ in (1..connection.rides) -%}
+                  {%- unless forloop.first -%}<div class="change"></div>{%- endunless -%}
+                  <div class="leg"></div>
+                {%- endfor -%}
+              </div>
+              <span class="time">
+                {{ connection.arrival | l_date: '%H:%M' }}
+                {%- if connection.arr_delay != nil and connection.arr_delay != "+0" and connection.arr_delay != "X" %} {{ connection.arr_delay }}
+                {%- endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+          <div class="details w--full flex flex--row flex--between">
+            <span class="description description--large">{% if connection.track %}Platform {{ connection.track }}{% endif %}</span>
+            <span class="description description--large">{{ connection.duration | divided_by: 60 }} min</span>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  {%- if shown == 0 -%}
+    <span class="title">No connections</span>
+    {%- for message in messages -%}
+      <span class="description">{{ message }}</span>
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+
+<div class="title_bar">
+  <img class="image-dither" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAAAXNSR0IArs4c6QAAAGBJREFUKJHd0EEOwCAIBMDd7f8/3MTQAwVRa3qXi8gYRIFjgu9qAGgA2JRVFfP0Mt8mFvOSdWzVPLXAW4N1ZV7wMSu3BlBb+m9bHjInqqNHxCFh1WwgLNq/S5h1+Mpj4gGrAxoVOFGx+gAAAABJRU5ErkJggg==" />
+  <span class="title">{{ fields.departure_station }} → {{ fields.arrival_station }}</span>
+  <span class="instance">{{ trmnl.system.timestamp_utc | plus: trmnl.user.utc_offset | date: '%H:%M' }}</span>
+</div>
+{% endtemplate %}

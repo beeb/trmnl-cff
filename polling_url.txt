@@ -1,0 +1,1 @@
+https://search.ch/timetable/api/route.json?from={{departure_station|escape}}&to={{arrival_station|escape}}{% if via_station > '' %}&via={{via_station|escape}}{% endif %}&transportation_types=train,tram,bus&show_delays=1&num=25
