@@ -7,7 +7,7 @@ two stations on your e-ink display.
   <a href="https://trmnl.com/recipes/32374"><img src="https://trmnl.com/images/brand/badges/dark/show-it-on-trmnl/trmnl-badge-show-it-on-dark.svg" alt="Show it on TRMNL" height="80"></a>
 </p>
 
-![Full layout](screenshot.png)
+![SBB/CFF Timetable on a TRMNL device](screenshot.png)
 
 ## Overview
 
