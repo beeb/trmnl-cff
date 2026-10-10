@@ -1,0 +1,62 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+framework_version: latest
+serverless_language: node
+refresh_interval_floor: ''
+polling_url: https://search.ch/timetable/api/route.json?from={{departure_station|escape}}&to={{arrival_station|escape}}{% if via_station > '' %}&via={{via_station|escape}}{% endif %}&transportation_types=train,tram,bus&show_delays=1&num=25
+polling_headers: ''
+polling_body: ''
+id: 32374
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
+oauth_authorize_url: ''
+oauth_token_url: ''
+oauth_scopes: ''
+oauth_scope_separator: ''
+oauth_refresh_url: ''
+oauth_auth_params: ''
+oauth_token_headers: ''
+oauth_token_site: ''
+oauth_token_params: ''
+oauth_token_request_auth_method: ''
+oauth_body_format: ''
+oauth_token_response_metadata: ''
+oauth_authorization_method: ''
+oauth_refresh_params: ''
+oauth_token_field_name: ''
+oauth_expiry_field_name: ''
+oauth_expiry_strategy: ''
+oauth_fixed_expiry_ms: ''
+custom_fields:
+- keyname: departure_station
+  field_type: string
+  name: Departure station
+  description: The station from which the train departs.
+  help_text: Usually the city name
+  placeholder: Lausanne
+- keyname: arrival_station
+  field_type: string
+  name: Arrival station
+  description: The station at which the train arrives.
+  help_text: Usually the city name
+  placeholder: Zurich
+- keyname: via_station
+  field_type: string
+  name: Via (station)
+  description: An optional station to pass through on the way to your destination.
+  help_text: Usually the city name
+  placeholder: Olten
+  optional: true
+- keyname: min_to_station
+  field_type: number
+  name: Minutes to reach station
+  description: The number of minutes it takes to reach the station from your location.
+  help_text: Trains which depart before you can reach the station will not be shown.
+  placeholder: 20
+name: SBB/CFF Timetable
+description: See your commute timetable
+refresh_interval: 15
