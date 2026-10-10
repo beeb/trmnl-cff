@@ -4,7 +4,7 @@ A train connection board for [TRMNL](https://trmnl.com) that shows the next Swis
 two stations on your e-ink display.
 
 <p align="center">
-  <a href="https://trmnl.com/recipes/32374"><img src="trmnl-badge-show-it-on-dark.svg" alt="Show it on TRMNL" height="80"></a>
+  <a href="https://trmnl.com/recipes/32374"><img src="https://trmnl.com/images/brand/badges/dark/show-it-on-trmnl/trmnl-badge-show-it-on-dark.svg" alt="Show it on TRMNL" height="80"></a>
 </p>
 
 ![Full layout](screenshot.png)
@@ -33,23 +33,23 @@ half horizontal, 5 in half vertical and 2 in quadrant.
    | ------------------------ | ------------------------------------------------------------- | -------- |
    | Departure station        | Station the train departs from                                | Lausanne |
    | Arrival station          | Station the train arrives at                                  | Zurich   |
-   | Via station              | Optional station to pass through                              | Olten    |
+   | Via (station)            | Optional station to pass through                              | Olten    |
    | Minutes to reach station | Trains leaving before you can reach the station are not shown | 20       |
 
 3. Add the plugin to a playlist and choose your preferred layout
 
 ## Manual Installation
 
-To run your own copy as a private plugin, create a new private plugin on TRMNL with the **Polling** strategy and copy
-the files of this repository into it:
+The plugin sources live in `src/`, in the layout used by TRMNL's GitHub sync and by
+[trmnlp](https://github.com/usetrmnl/trmnlp). To run your own copy as a private plugin, create a new private plugin on
+TRMNL with the **Polling** strategy and copy the files into it:
 
-| File                                                                               | Where it goes                      |
-| ---------------------------------------------------------------------------------- | ---------------------------------- |
-| `polling_url.txt`                                                                  | Polling URL                        |
-| `settings.yml`                                                                     | Custom fields (form fields)        |
-| `transform.js`                                                                     | Pre-processing script (transform)  |
-| `shared.liquid`                                                                    | Shared markup                      |
-| `full.liquid`, `half_horizontal.liquid`, `half_vertical.liquid`, `quadrant.liquid` | Markup of the corresponding layout |
+| File                                                  | Where it goes                                     |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| `src/settings.yml`                                    | Polling URL (`polling_url`) and the custom fields |
+| `src/transform.js`                                    | Pre-processing script (transform)                 |
+| `src/shared.liquid`                                   | Shared markup                                     |
+| `src/full.liquid`, `src/half_horizontal.liquid`, etc. | Markup of the corresponding layout                |
 
 The raw API response is too large for TRMNL, so `transform.js` reduces it to the few values the templates read.
 
