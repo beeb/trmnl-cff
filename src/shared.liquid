@@ -8,10 +8,10 @@
   .terminal { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .time { white-space: nowrap; }
   .legs { display: flex; align-items: center; gap: 3px; }
-  .leg { flex: 1; height: 4px; background: black; }
+  .leg { flex: 1; height: 4px; background: currentColor; }
   .details .description { font-weight: 400; font-variation-settings: "wght" 400; }
   .alert { flex: none; width: 24px; height: 22px; }
-  .change { flex: none; width: 10px; height: 10px; border: 2px solid black; border-radius: 50%; box-sizing: border-box; }
+  .change { flex: none; width: 10px; height: 10px; border: 2px solid currentColor; border-radius: 50%; box-sizing: border-box; }
 </style>
 
 {% template cff %}
@@ -39,7 +39,7 @@
               <span class="terminal title title--small">{{ connection.terminal }}</span>
             </div>
             {%- if connection.disrupted -%}
-              <svg class="alert" viewBox="0 0 24 22"><path d="M12 2.5 L22 19.5 H2 Z" fill="black" stroke="black" stroke-width="4" stroke-linejoin="round" /><rect x="11" y="7" width="2" height="7" fill="white" /><rect x="11" y="16" width="2" height="2" fill="white" /></svg>
+              <svg class="alert" viewBox="0 0 24 22"><mask id="cff-alert"><rect width="24" height="22" fill="white" /><rect x="11" y="7" width="2" height="7" fill="black" /><rect x="11" y="16" width="2" height="2" fill="black" /></mask><path d="M12 2.5 L22 19.5 H2 Z" fill="currentColor" stroke="currentColor" stroke-width="4" stroke-linejoin="round" mask="url(#cff-alert)" /></svg>
             {%- endif -%}
           </div>
           <div class="w--full flex flex--row flex--between flex--center-y gap--small">
