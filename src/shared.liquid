@@ -6,10 +6,10 @@
   .head { min-width: 0; }
   .head .label { flex: none; }
   .terminal { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .time { font-family: TRMNL21; font-size: 21px; white-space: nowrap; }
+  .time { white-space: nowrap; }
   .legs { display: flex; align-items: center; gap: 3px; }
   .leg { flex: 1; height: 4px; background: black; }
-  .details .description { font-weight: 400; }
+  .details .description { font-weight: 400; font-variation-settings: "wght" 400; }
   .alert { flex: none; width: 24px; height: 22px; }
   .change { flex: none; width: 10px; height: 10px; border: 2px solid black; border-radius: 50%; box-sizing: border-box; }
 </style>
@@ -43,7 +43,7 @@
             {%- endif -%}
           </div>
           <div class="w--full flex flex--row flex--between flex--center-y gap--small">
-            <span class="time">
+            <span class="time title">
               {{ connection.departure | l_date: '%H:%M' }}
               {%- if connection.dep_delay == "X" %} cancelled
               {%- elsif delayed %} {{ connection.dep_delay }}
@@ -56,7 +56,7 @@
                   <div class="leg"></div>
                 {%- endfor -%}
               </div>
-              <span class="time">
+              <span class="time title">
                 {{ connection.arrival | l_date: '%H:%M' }}
                 {%- if connection.arr_delay != nil and connection.arr_delay != "+0" and connection.arr_delay != "X" %} {{ connection.arr_delay }}
                 {%- endif -%}
