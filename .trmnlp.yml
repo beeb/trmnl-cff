@@ -7,7 +7,13 @@ watch:
   - src
 
 # values of custom fields (defined in src/settings.yml)
-custom_fields: {}
+custom_fields:
+  departure_station: Lausanne
+  arrival_station: Zurich
+  min_to_station: 20
+
+# Time zone IANA identifier to inject into trmnl.user
+time_zone: Europe/Zurich
 
 # override variables
 variables:

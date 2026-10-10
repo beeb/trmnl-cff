@@ -32,6 +32,13 @@ oauth_expiry_field_name: ''
 oauth_expiry_strategy: ''
 oauth_fixed_expiry_ms: ''
 custom_fields:
+- keyname: author_bio
+  field_type: author_bio
+  name: About This Plugin
+  category: travel,life
+  description: Next Swiss public transport connections between two stations, with delays, platforms and disruptions. Timetable data provided by search.ch.
+  github_url: https://github.com/beeb/trmnl-cff
+  learn_more_url: https://search.ch/timetable/
 - keyname: departure_station
   field_type: string
   name: Departure station
@@ -57,6 +64,7 @@ custom_fields:
   description: The number of minutes it takes to reach the station from your location.
   help_text: Trains which depart before you can reach the station will not be shown.
   placeholder: 20
+  min: 0
 name: SBB/CFF Timetable
 description: See your commute timetable
 refresh_interval: 15

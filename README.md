@@ -21,8 +21,9 @@ lists them with everything you need to decide which train to catch:
 - **Disruptions** - a warning sign marks connections affected by a disruption
 - **Only trains you can catch** - connections leaving before you can reach the station are hidden
 
-All four TRMNL layouts are supported. The number of connections shown adapts to the available space: 15 in full, 6 in
-half horizontal, 5 in half vertical and 2 in quadrant.
+All four TRMNL layouts are supported. The plugin shows as many connections as fit the available space, so it
+adapts to the layout, the device and its orientation: on the original TRMNL that is 15 in full, 6 in half horizontal,
+5 in half vertical and 2 in quadrant.
 
 ## How to Use
 
