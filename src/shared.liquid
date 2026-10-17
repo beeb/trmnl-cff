@@ -1,6 +1,8 @@
 <style>
   /* as many rows as fit the height, connections that land beyond them are hidden */
   .connections { grid-template-rows: repeat(auto-fill, minmax(81px, 1fr)); grid-auto-rows: 0; row-gap: 0; overflow: hidden; }
+  /* centers each connection vertically, safe keeps the content of hidden rows below the grid */
+  .connections > div { justify-content: safe center; }
   .terminal { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .time { white-space: nowrap; }
   .change { border: 2px solid currentColor; box-sizing: border-box; }
@@ -23,8 +25,8 @@
         {%- if connection.dep_delay != nil and connection.dep_delay != "+0" -%}
           {%- assign delayed = true -%}
         {%- endif -%}
-        <div class="border--h-4 pb--2 mb--1.5">
-          <div class="flex flex--row flex--between flex--center-y gap--small">
+        <div class="flex flex--col flex--stretch-x gap--none border--h-4 pb--2 mb--1.5">
+          <div class="flex-none flex flex--row flex--between flex--center-y gap--small">
             <div class="flex flex--row flex--center-y gap--small w--min-0">
               <span class="label flex-none {% if connection.dep_delay == "X" %}label--gray{% elsif delayed %}label--outline{% else %}label--inverted{% endif %}">
                 {{- connection.line -}}
@@ -35,7 +37,7 @@
               <svg class="flex-none w--6 h--[22px]" viewBox="0 0 24 22"><mask id="cff-alert"><rect width="24" height="22" fill="white" /><rect x="11" y="7" width="2" height="7" fill="black" /><rect x="11" y="16" width="2" height="2" fill="black" /></mask><path d="M12 2.5 L22 19.5 H2 Z" fill="currentColor" stroke="currentColor" stroke-width="4" stroke-linejoin="round" mask="url(#cff-alert)" /></svg>
             {%- endif -%}
           </div>
-          <div class="w--full flex flex--row flex--between flex--center-y gap--small">
+          <div class="flex-none w--full flex flex--row flex--between flex--center-y gap--small">
             <span class="time title">
               {{ connection.departure | l_date: '%H:%M' }}
               {%- if connection.dep_delay == "X" %} cancelled
@@ -56,7 +58,7 @@
               </span>
             {%- endif -%}
           </div>
-          <div class="w--full flex flex--row flex--between">
+          <div class="flex-none w--full flex flex--row flex--between">
             <span class="description description--large font--regular">{% if connection.track %}Platform {{ connection.track }}{% endif %}</span>
             <span class="description description--large font--regular">{{ connection.duration | divided_by: 60 }} min</span>
           </div>
