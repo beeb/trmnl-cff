@@ -26,7 +26,7 @@
           {%- assign delayed = true -%}
         {%- endif -%}
         <div class="flex flex--col flex--stretch-x gap--none border--h-4 pb--2 mb--1.5">
-          <div class="flex-none flex flex--row flex--between flex--center-y gap--small">
+          <div class="flex-none flex flex--row flex--between flex--center-y gap--small mb--1">
             <div class="flex flex--row flex--center-y gap--small w--min-0">
               <span class="label flex-none {% if connection.dep_delay == "X" %}label--gray{% elsif delayed %}label--outline{% else %}label--inverted{% endif %}">
                 {{- connection.line -}}
